@@ -1,0 +1,22 @@
+{
+    "books": [
+      { 
+        "id": 1, 
+        "name":"json-server", 
+        "author": "typicode",
+        "cost": 420
+      },
+      { 
+        "id": 1, 
+        "name":"json-server", 
+        "author": "typicode",
+        "cost": 420
+      },
+      { 
+        "id": 1, 
+        "name":"json-server", 
+        "author": "typicode",
+        "cost": 420
+      }
+    ]
+  }
