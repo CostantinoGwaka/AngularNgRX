@@ -1,9 +1,18 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
-import { EMPTY, map, mergeMap, withLatestFrom } from 'rxjs';
+import { EMPTY, map, mergeMap, switchMap, withLatestFrom } from 'rxjs';
+import { setAPIStatus } from 'src/app/shared/store/app.action';
+import { Appstate } from 'src/app/shared/store/appstate';
 import { BooksService } from '../books.service';
-import { booksFetchAPISuccess, invokeBooksAPI } from './books.action';
+import {
+    booksFetchAPISuccess,
+    invokeBooksAPI,
+    invokeSaveNewBookAPI,
+    invokeUpdateBookAPI,
+    saveNewBookAPISucess,
+    updateBookAPISucess,
+  } from './books.action';
 import { selectBooks } from './books.selector';
  
 @Injectable()
@@ -11,7 +20,8 @@ export class BooksEffect {
   constructor(
     private actions$: Actions,
     private booksService: BooksService,
-    private store: Store
+    private store: Store,
+    private appStore: Store<Appstate>
   ) {}
  
   loadAllBooks$ = createEffect(() =>
@@ -28,4 +38,47 @@ export class BooksEffect {
       })
     )
   );
+
+  saveNewBook$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(invokeSaveNewBookAPI),
+      switchMap((action) => {
+        this.appStore.dispatch(
+          setAPIStatus({ apiStatus: { apiResponseMessage: '', apiStatus: '' } })
+        );
+        return this.booksService.create(action.newBook).pipe(
+          map((data) => {
+            this.appStore.dispatch(
+              setAPIStatus({
+                apiStatus: { apiResponseMessage: '', apiStatus: 'success' },
+              })
+            );
+            return saveNewBookAPISucess({ newBook: data });
+          })
+        );
+      })
+    );
+  });
+
+  updateBookAPI$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(invokeUpdateBookAPI),
+      switchMap((action) => {
+        this.appStore.dispatch(
+          setAPIStatus({ apiStatus: { apiResponseMessage: '', apiStatus: '' } })
+        );
+        return this.booksService.update(action.updateBook).pipe(
+          map((data) => {
+            this.appStore.dispatch(
+              setAPIStatus({
+                apiStatus: { apiResponseMessage: '', apiStatus: 'success' },
+              })
+            );
+            return updateBookAPISucess({ updateBook: data });
+          })
+        );
+      })
+    );
+  });
+
 }

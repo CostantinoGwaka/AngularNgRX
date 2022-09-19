@@ -9,6 +9,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { BooksEffect } from './books/store/books.effect';
 import { HttpClientModule } from '@angular/common/http';
+import { appReducer } from './shared/store/app.reducer';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,7 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserModule,
     AppRoutingModule,
     EffectsModule.forRoot([]),
-    StoreModule.forRoot({}, {}),
+    StoreModule.forRoot({ appState: appReducer }),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production })
   ],
   providers: [],

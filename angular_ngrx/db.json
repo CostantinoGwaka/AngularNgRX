@@ -1,22 +1,28 @@
 {
-    "books": [
-      { 
-        "id": 1, 
-        "name":"json-server", 
-        "author": "typicode",
-        "cost": 420
-      },
-      { 
-        "id": 1, 
-        "name":"json-server", 
-        "author": "typicode",
-        "cost": 420
-      },
-      { 
-        "id": 1, 
-        "name":"json-server", 
-        "author": "typicode",
-        "cost": 420
-      }
-    ]
-  }
+  "books": [
+    {
+      "id": 1,
+      "name": "json-server",
+      "author": "typicode",
+      "cost": 420
+    },
+    {
+      "id": 1,
+      "name": "json-server",
+      "author": "typicode",
+      "cost": 420
+    },
+    {
+      "id": 1,
+      "name": "json-server",
+      "author": "typicode",
+      "cost": 420
+    },
+    {
+      "id": 2,
+      "author": "aa",
+      "name": "aa",
+      "cost": 30000
+    }
+  ]
+}
